@@ -14,7 +14,7 @@ class queue
 public:
     queue(int size = 10);     //constructor with default size 10 
  
-    void dequeue();
+    void dequeue();            //the functions included in the class queue
     void enqueue(X x);
     void peek();
     int size();
@@ -141,14 +141,15 @@ void queue<X>::checkCap(){
     }
 }
 
-//function to determine the partition of the elements in the queue for quick sort.
+//function to determine the partition of the elements in the queue for quick sort. (only works for integers)
 template <class X>
 int queue<X>::partition(int lb, int ub) //lb is lowerbound, ub is upperbound
 {
-    int pivot = arr[lb]; //uses the lowerbound element as the pivot
+    int pivot = arr[lb]; 
     int start = lb;
     int end = ub;
 
+    //swapping mechanism
     while(start<end){
         while(arr[start]<=pivot){
             start++;
@@ -165,23 +166,23 @@ int queue<X>::partition(int lb, int ub) //lb is lowerbound, ub is upperbound
     return end;
 }
 
-//recursive function to sort the elements in the queue using quickSort algorithm
+//recursive function to sort the elements in the queue using quickSort algorithm (only works for integers)
 template <class X>
 int queue<X>::quickSort(int lb, int ub){
     if (lb<ub){ 
         int p = partition(lb, ub);
 
-        quickSort(lb, p-1); 
-        quickSort(p+1, ub);
+        quickSort(lb, p-1);  //recursive calls to solve the left half of the partition
+        quickSort(p+1, ub);  //recursive calls to solve the right half of the partition
     }
 }
 
+//function to conduct a binary search (only works for integers)
 template <class X>
-int queue<X>::binarySearch(int x, int lb, int ub) {
-  
-	// Repeat until the lowerbound and upperbound meet each other
+int queue<X>::binarySearch(int x, int lb, int ub) { //x is the element we want to find, lb is lowerbound, ub is upperbound.
+	
     while (lb <= ub) {
-        int mid = lb + (ub - lb) / 2;
+        int mid = lb + (ub - lb) / 2; //finding the middle element
 
         if (arr[mid] == x)
         return mid;
@@ -192,5 +193,5 @@ int queue<X>::binarySearch(int x, int lb, int ub) {
         else
         ub = mid - 1;
     }
-    return -1; 
+    return -1;
 }
